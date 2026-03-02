@@ -1,0 +1,297 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Cormorant', serif;
+  background-color: rgb(116, 134, 108);
+  color: #f5f0e6;
+  position: relative;
+}
+
+/* corner decoration image */
+.corner-deco {
+  position: absolute;
+  top: 0;
+  right: -100px; /* adjust as needed to position the image */
+  z-index: 101;
+  pointer-events: none;
+}
+
+.corner-deco img {
+  display: block;
+  max-width: 300px;
+  width: 300%;
+}
+
+/* bottom-right corner decoration */
+.corner-deco-bottom {
+  position: absolute;
+  bottom: 0;
+  right: -100px; /* adjust as needed to position the image */
+  z-index: 101;
+  pointer-events: none;
+}
+
+.corner-deco-bottom img {
+  display: block;
+  max-width: 300px;
+  width: 300%;
+  transform: rotate(90deg);
+}
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  padding: 2.5rem 2rem;   /* <<< MEHR HÖHE */
+  background: rgba(116, 134, 108, 0.9);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  justify-content: left; /* Button rechts */
+}
+
+.nav-link {
+  font-family: 'Cormorant', serif;
+  font-size: 2.6rem;        /* <<< deutlich größer */
+  letter-spacing: 0.12em;
+
+  color: #CBAB88;
+  text-decoration: none;
+
+  border: 3px solid #CBAB88;
+  padding: 1.2rem 2.4rem;
+
+  transition: all 0.25s ease;
+}
+
+.nav-link:hover {
+  background: #CBAB88;
+  color: #2f3b2f;
+}
+
+/* SECTION */
+.jugendstil {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background-image: url("images/pattern.jpg"); /* optional */
+  background-size: cover;
+}
+
+h1 {
+  font-size: 5rem; /* smaller */
+  font-weight: 300; /* lighter */
+  margin-bottom: 4rem;
+}
+
+/* GALLERY */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  /* more space between each item; using viewport width for responsiveness */
+  gap: 10vw;
+}
+
+/* ITEMS */
+.item {
+  position: relative;
+  max-width: 320px;
+  /* give each gallery item space below it so labels don't bump the next image */
+  margin-bottom: 15vw; /* adjust as needed for the desired gap */
+}
+
+/* POSITIONING */
+.left {
+  align-self: flex-start;
+}
+
+/* extra leftward offset for selected items */
+.shift-left {
+  transform: translateX(-1vw);
+}
+
+.right {
+  align-self: flex-end;
+  transform: translateX(0vw);
+}
+
+.center {
+  align-self: center;
+}
+.left {
+  align-self: flex-start;
+  margin-left: 5rem;
+}
+
+.right {
+  /* align at the end of the flex column */
+  align-self: flex-end;
+  /* eliminate default space so the element can move all the way outwards */
+  margin-right: 0;
+  /* nudge the item beyond the container toward the viewport edge */
+  /* adjust the percentage/px until it sits almost at the screen border */
+  /* for smaller screens you may want a smaller value or media query */
+}
+
+.center {
+  align-self: center;
+}
+/* BILD + TITEL BLOCK */
+.image-block {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* subtle wiggle animation when hovering over an item */
+@keyframes wiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.item:hover .image-block img {
+  animation: wiggle 0.6s ease-in-out;
+}
+
+/* trigger wiggle when item scrolls into view */
+.item.in-view .image-block img {
+  animation: wiggle 0.6s ease-in-out;
+}
+
+/* BILDER */
+.item img {
+   width: 480px;
+  border: 6px solid #c9a45c;
+  background: #fff;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+}
+
+/* GROSSES HAUPTBILD */
+.item.large img {
+  width: 480px;
+}
+
+/* TITEL UNTER BILD */
+.label {
+  background: #f5f0e6 !important;
+  color: #2f3b2f;
+  font-size: 2rem;
+  padding: 0.4rem 0.6rem;
+  margin-top: 0.6rem;
+  width: fit-content;
+  /* make sure the label doesn't get any transforms or opacity changes */
+  backface-visibility: hidden;
+  transform: none;
+  /* sit above any shadow from the image */
+  position: relative;
+  z-index: 2;
+}
+
+/* INTERAKTION: BILD → TEXT */
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+/* when the item itself is pushed right, put the text on the left side */
+.info-item.right {
+  flex-direction: row-reverse;
+}
+
+/* CHECKBOX VERSTECKEN */
+.toggle {
+  display: none;
+}
+
+/* TEXT BEIM KLICK SICHTBAR */
+.toggle:checked + .image-block + .info-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* QUELLEN */
+.quellen {
+  margin-top: 8rem;
+  padding-top: 4rem;
+  border-top: 3px solid rgba(201, 164, 92, 0.4);
+}
+
+.quellen h2 {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+.quellen ul {
+  list-style: none;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.quellen li::before {
+  content: "✦ ";
+  color: #c9a45c;
+}
+
+/* MINI EINORDNUNG */
+.intro {
+  max-width: 900px;
+  font-size: 2rem;
+  line-height: 1.6;
+  margin-bottom: 6rem;
+  opacity: 0.85;
+}
+
+/* LINKS → TEXT KOMMT VON LINKS */
+.info-item.left .info-text,
+.info-item.center .info-text {
+  transform: translateX(-12px);
+}
+
+/* RECHTS → TEXT KOMMT VON RECHTS */
+.info-item.right .info-text {
+  transform: translateX(12px);
+}
+
+/* SICHTBAR BEIM KLICK */
+.toggle:checked + .image-block + .info-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.info-text {
+  max-width: 34ch;              /* ca. 2–3 Wörter pro Zeile */
+  min-width: 22ch;              /* verhindert 1-Wort-Zeilen */
+  font-size: 2rem;
+  line-height: 1.55;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  white-space: normal;
+  word-break: normal;
+  hyphens: none;
+
+  text-wrap: balance;           /* moderne Browser: bessere Umbrüche */
+}
+
+/* KONTEXTTEXT / SCHLUSSGEDANKE */
+.context-text {
+  max-width: 900px;
+  font-size: 2rem;
+  line-height: 1.6;
+  margin-bottom: 6rem;
+  opacity: 0.85;
+}
